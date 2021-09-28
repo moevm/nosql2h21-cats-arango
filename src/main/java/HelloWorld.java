@@ -86,48 +86,5 @@ public class HelloWorld {
         } catch (final ArangoDBException e) {
             System.err.println("Failed to get document: myKey; " + e.getMessage());
         }
-
-        // delete a document
-        try {
-            arangoDB.db(dbName).collection(collectionName).deleteDocument("myKey");
-        } catch (final ArangoDBException e) {
-            System.err.println("Failed to delete document. " + e.getMessage());
-        }
-
-        // create some documents for the next step
-        final ArangoCollection collection = arangoDB.db(dbName).collection(collectionName);
-        for (int i = 0; i < 10; i++) {
-            final BaseDocument value = new BaseDocument();
-            value.setKey(String.valueOf(i));
-            value.addAttribute("name", "Homer");
-            collection.insertDocument(value);
-        }
-
-        // execute AQL queries
-        try {
-            final String query = "FOR t IN firstCollection FILTER t.name == @name RETURN t";
-            final Map<String, Object> bindVars = new MapBuilder().put("name", "Homer").get();
-            final ArangoCursor<BaseDocument> cursor = arangoDB.db(dbName).query(query, bindVars, null,
-                    BaseDocument.class);
-            for (; cursor.hasNext(); ) {
-                System.out.println("Key: " + cursor.next().getKey());
-            }
-        } catch (final ArangoDBException e) {
-            System.err.println("Failed to execute query. " + e.getMessage());
-        }
-
-        // delete a document with AQL
-        try {
-            final String query = "FOR t IN firstCollection FILTER t.name == @name "
-                    + "REMOVE t IN firstCollection LET removed = OLD RETURN removed";
-            final Map<String, Object> bindVars = new MapBuilder().put("name", "Homer").get();
-            final ArangoCursor<BaseDocument> cursor = arangoDB.db(dbName).query(query, bindVars, null,
-                    BaseDocument.class);
-            for (; cursor.hasNext(); ) {
-                System.out.println("Removed document " + cursor.next().getKey());
-            }
-        } catch (final ArangoDBException e) {
-            System.err.println("Failed to execute query. " + e.getMessage());
-        }
     }
 }
