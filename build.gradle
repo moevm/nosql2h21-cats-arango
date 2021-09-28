@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation 'com.arangodb:arangodb-java-driver:6.13.0'
+    implementation 'com.arangodb:jackson-dataformat-velocypack:2.0.0'
+}
+
+test {
+    useJUnitPlatform()
+}
