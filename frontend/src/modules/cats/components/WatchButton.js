@@ -1,17 +1,27 @@
 import React, {useState} from "react";
-import {Button, Form, Input, Modal} from "antd";
+import {Button, DatePicker, Form, Input, Modal,Select} from "antd";
+import moment from "moment";
 
 const {Item} = Form;
 const {TextArea} = Input;
+const {Option} = Select;
 export const WatchButton = ({cat}) =>{
     const [visible, setVisible] = useState(false);
     const [visible2, setVisible2] = useState(false);
     const [form] = Form.useForm();
+    const [form2] = Form.useForm();
 
     const showModal = () => setVisible(true);
     const handleCancel = () => setVisible(false);
-    const handleShelter = () => setVisible2(true);
+    const handleShelter = (values) => {
+        console.log(values);
+        setVisible2(true);
+    }
     const handleShelterCancel = () => setVisible2(false);
+    const handleEdit = (values) => {
+        console.log(values);
+        setVisible(false);
+    }
     return(
         <>
             <Button type='primary' onClick={showModal}>Смотреть</Button>
@@ -25,7 +35,7 @@ export const WatchButton = ({cat}) =>{
                 onCancel={handleCancel}
             >
                 <div >
-                    <Form form={form} component={false} initialValues={cat} >
+                    <Form form={form} initialValues={{...cat, appearance_date: moment(cat.appearance_date)}}  onFinish={handleEdit}  >
                         <Item name='name' label="Кличка" >
                             <Input />
                         </Item>
@@ -36,13 +46,23 @@ export const WatchButton = ({cat}) =>{
                             <Input />
                         </Item>
                         <Item name='appearance_date' label="Дата появления в приюте">
-                            <Input />
+                            <DatePicker format={'DD.MM.YYYY'} defaultValue={moment()}/>
                         </Item>
                         <Item name='breed' label="Порода" >
-                            <Input />
+                            <Select defaultValue={cat.breed}>
+                                <Option value="синий ушастик">синий ушастик</Option>
+                                <Option value="jack">Jack</Option>
+                                <Option value="lucy">Lucy</Option>
+                                <Option value="tom">Tom</Option>
+                            </Select>
                         </Item>
                         <Item name='description' label="Описание">
                             <TextArea rows={5} />
+                        </Item>
+                        <Item >
+                            <Button type="primary" htmlType="submit">
+                                Редактировать
+                            </Button>
                         </Item>
                     </Form>
                 </div>
@@ -55,11 +75,21 @@ export const WatchButton = ({cat}) =>{
                 okText='Приютить'
                 onOk={handleShelterCancel}
                 onCancel={handleShelterCancel}
+                footer={<></>}
             >
                 <div >
-                    <Form form={form} component={false} >
-                        <Item name='text' label="Владелец">
-                            <Input />
+                    <Form form={form2} onFinish={handleShelter} >
+                        <Item name='owner' label="Владелец">
+                            <Select>
+                                <Option value="jack">Jack</Option>
+                                <Option value="lucy">Lucy</Option>
+                                <Option value="tom">Tom</Option>
+                            </Select>
+                        </Item>
+                        <Item >
+                            <Button type="primary" htmlType="submit">
+                                Приютить
+                            </Button>
                         </Item>
                     </Form>
                 </div>

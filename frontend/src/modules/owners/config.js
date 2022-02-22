@@ -13,11 +13,6 @@ export const COLUMNS = [
         align: 'center',
     },
     {
-        title: 'Телефон',
-        dataIndex: 'phone',
-        align: 'center',
-    },
-    {
         title: 'Дата рождения',
         dataIndex: 'birth_date',
         align: 'center',

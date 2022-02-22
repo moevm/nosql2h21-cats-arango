@@ -34,7 +34,7 @@ export const AdoptedCatsTable = () =>{
 
     return (
         <>
-            <header className={'.OwnersTable_header'}>
+            <header className={'.CatsTable_header'} style={{display: 'flex', flexDirection: 'row', margin: '20px 0'}}>
                 <h1>Коты которых приютили</h1>
             </header>
 
