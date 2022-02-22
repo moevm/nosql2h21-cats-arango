@@ -11,7 +11,8 @@ const dataSource = [
         age: '10 лет',
         weight: '32кг',
         appearance_date: '2022-01-12T18:00:42.305Z',
-        breed:'синий ушастик'
+        breed:'синий ушастик',
+        description: 'твой самый лучший друг'
     },
 ];
 

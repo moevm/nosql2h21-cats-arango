@@ -34,7 +34,7 @@ export const COLUMNS = [
         key: 'actions',
         align: 'center',
         render: (record) => (
-                <WatchButton />
+                <WatchButton cat={record} />
         ),
     },
 ];

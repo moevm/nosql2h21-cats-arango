@@ -1,19 +1,17 @@
 import React, {useState} from "react";
-import { useForm } from 'antd/es/form/Form';
 import {Button, Form, Input, Modal} from "antd";
 
 const {Item} = Form;
 const {TextArea} = Input;
-export const WatchButton = () =>{
+export const WatchButton = ({cat}) =>{
     const [visible, setVisible] = useState(false);
     const [visible2, setVisible2] = useState(false);
-    const [form] = useForm();
+    const [form] = Form.useForm();
 
     const showModal = () => setVisible(true);
     const handleCancel = () => setVisible(false);
     const handleShelter = () => setVisible2(true);
     const handleShelterCancel = () => setVisible2(false);
-
     return(
         <>
             <Button type='primary' onClick={showModal}>Смотреть</Button>
@@ -27,23 +25,23 @@ export const WatchButton = () =>{
                 onCancel={handleCancel}
             >
                 <div >
-                    <Form form={form} component={false} >
-                        <Item name='text' label="Кличка" >
+                    <Form form={form} component={false} initialValues={cat} >
+                        <Item name='name' label="Кличка" >
                             <Input />
                         </Item>
-                        <Item name='text' label="Возраст" >
+                        <Item name='age' label="Возраст" >
                             <Input />
                         </Item>
-                        <Item name='text' label="Вес" >
+                        <Item name='weight' label="Вес" >
                             <Input />
                         </Item>
-                        <Item name='text' label="Дата появления в приюте">
+                        <Item name='appearance_date' label="Дата появления в приюте">
                             <Input />
                         </Item>
-                        <Item name='text' label="Порода" >
+                        <Item name='breed' label="Порода" >
                             <Input />
                         </Item>
-                        <Item name='text' label="Описание">
+                        <Item name='description' label="Описание">
                             <TextArea rows={5} />
                         </Item>
                     </Form>
