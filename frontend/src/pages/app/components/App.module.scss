@@ -1,0 +1,28 @@
+.layout {
+  :global {
+    .ant-layout {
+      min-height: 100vh;
+    }
+  }
+}
+
+.content {
+  margin: 0 25px;
+}
+
+.header {
+  /* coming soon */
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  :global{
+    .ant-spin span{
+      font-size: 50px;
+    }
+  }
+}
