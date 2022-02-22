@@ -16,7 +16,7 @@ public class SpringConfig implements ArangoConfiguration {
     public ArangoDB.Builder arango() {
 
         ArangoDB.Builder arango = new ArangoDB.Builder()
-                .host("127.0.0.1", 8529)
+                .host("db", 8529)
                 .useProtocol(Protocol.HTTP_JSON)
                 .user("root")
                 .password("123");
