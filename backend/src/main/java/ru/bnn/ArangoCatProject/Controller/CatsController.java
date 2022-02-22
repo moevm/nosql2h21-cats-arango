@@ -1,5 +1,7 @@
 package ru.bnn.ArangoCatProject.Controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.bnn.ArangoCatProject.DataAccessObject.CatsDAO;
 import ru.bnn.ArangoCatProject.Model.Cats;
@@ -17,8 +19,13 @@ public class CatsController {
 
     @PostMapping("/cats")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Cats create(@RequestBody Cats cat) {
-        return catsDAO.save(cat);
+    public ResponseEntity<Void> create(@RequestBody String cat) {
+        if(cat != null){
+            System.out.println(cat);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/cats")
