@@ -30,11 +30,17 @@ export const COLUMNS = [
 
     },
     {
+        title: 'Владелец',
+        dataIndex: 'owner',
+        align: 'center',
+
+    },
+    {
         title: 'Действие',
         key: 'actions',
         align: 'center',
         render: (record) => (
-                <WatchButton cat={record} />
+            <WatchButton adoptedCat={record} />
         ),
     },
 ];
