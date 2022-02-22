@@ -1,0 +1,45 @@
+version: "3"
+
+
+services:
+  db:
+    image: arangodb
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./db/:/data/db/
+    ports:
+      - "8529:8529"
+    environment:
+      - ARANGO_ROOT_PASSWORD=${PASSWORD}
+
+#  client:
+#    build:
+#      context: ./frontend
+#      dockerfile: Dockerfile
+#    restart: unless-stopped
+#    env_file: .env
+#    ports:
+#      - "3000:3000"
+#
+#  server:
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile
+#    restart: unless-stopped
+#    env_file: .env
+#    ports:
+#      - "8080:8080"
+
+#  server:
+#    image: react
+#    restart: unless-stopped
+#    env_file: .env
+#    depends_on:
+#      - db
+#    #    volumes:
+#    #      - ./db/:/data/db/
+#    #    ports:
+#    #      - 8529:8529
+#    environment:
+#      - ARANGO_ROOT_PASSWORD=${PASSWORD}
