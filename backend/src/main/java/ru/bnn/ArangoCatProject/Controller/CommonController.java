@@ -1,14 +1,12 @@
 package ru.bnn.ArangoCatProject.Controller;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.bnn.ArangoCatProject.DataAccessObject.DataAccessObject;
+import ru.bnn.ArangoCatProject.Model.Cats;
 import ru.bnn.ArangoCatProject.Model.HaveOwner;
+import ru.bnn.ArangoCatProject.Model.Owners;
 
-import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 public class CommonController {
@@ -19,25 +17,17 @@ public class CommonController {
     }
 
     @PostMapping("/cats/makehome")
-    public HaveOwner create(@RequestBody @Valid JSONObject cat) {
-        JSONObject fromData = null;
-        try {
-            fromData = cat.getJSONObject("data");
-        } catch (JSONException e) {
-            System.out.println(e.getMessage());
-        }
+    public HaveOwner create(@RequestParam("catKey") String catKey, @RequestParam("ownerKey") String ownerKey) {
 
         HaveOwner edge = new HaveOwner();
 
-        try {
-            if (fromData != null) {
-                dao.findCat(fromData.getString("catKey")).ifPresent(edge::set_from);
-                dao.findOwner(fromData.getString("ownerKey")).ifPresent(edge::set_to);
-            }
-        } catch (JSONException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+        Optional<Cats> cat = dao.findCat(catKey);
+        Optional<Owners> owner = dao.findOwner(ownerKey);
+
+        cat.ifPresent(edge::set_from);
+        owner.ifPresent(edge::set_to);
+
+        cat.ifPresent(cats -> cats.setOwner(edge));
 
         return dao.save(edge);
     }

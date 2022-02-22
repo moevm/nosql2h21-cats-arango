@@ -1,9 +1,7 @@
 package ru.bnn.ArangoCatProject.DataAccessObject;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ru.bnn.ArangoCatProject.Model.Owners;
 import ru.bnn.ArangoCatProject.Repository.OwnersRepository;
@@ -25,7 +23,8 @@ public class OwnersDAO {
     }
 
     public Optional<Owners> findOne(String ownerID) {
-        if (ownerID == null || ownerID.isEmpty()) return Optional.empty();
+        if (ownerID == null || ownerID.isEmpty())
+            return Optional.empty();
         return ownersRepository.findById(ownerID);
     }
 
@@ -37,7 +36,6 @@ public class OwnersDAO {
         String ownerID = owner.getKey();
         if (ownerID == null || ownerID.isEmpty())
             return null;
-
         return ownersRepository.save(owner);
     }
 

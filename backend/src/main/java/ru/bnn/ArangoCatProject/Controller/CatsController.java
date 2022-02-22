@@ -1,11 +1,9 @@
 package ru.bnn.ArangoCatProject.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bnn.ArangoCatProject.DataAccessObject.CatsDAO;
 import ru.bnn.ArangoCatProject.Model.Cats;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
@@ -18,23 +16,23 @@ public class CatsController {
     }
 
     @PostMapping("/cats")
-    public Cats create(@RequestBody @Valid Cats cat) {
+    public Cats create(@RequestBody Cats cat) {
         return catsDAO.save(cat);
     }
 
     @PutMapping("/cats")
-    public Cats update(@RequestBody @Valid Cats cat) {
+    public Cats update(@RequestBody Cats cat) {
         return catsDAO.update(cat);
     }
 
-    @GetMapping("/cats")
-    public Iterable<Cats> listAll() {
-        return catsDAO.findAll();
+    @GetMapping("/homeless")
+    public Iterable<Cats> listHomeless() {
+        return catsDAO.findHomeless();
     }
 
-    @GetMapping("/cats/adopted")
+    @GetMapping("/adopted")
     public Iterable<Cats> listAdopted() {
-        return catsDAO.findAllAdopted();
+        return catsDAO.findAdopted();
     }
 
     @GetMapping("/cats/{id}")

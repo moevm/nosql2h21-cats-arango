@@ -2,7 +2,6 @@ package ru.bnn.ArangoCatProject.Config;
 
 import com.arangodb.ArangoDB;
 import com.arangodb.Protocol;
-import com.arangodb.mapping.ArangoJack;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.ArangoConfiguration;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +12,26 @@ public class SpringConfig implements ArangoConfiguration {
 
     @Override
     public ArangoDB.Builder arango() {
-        return new ArangoDB.Builder()
-                .host("localhost", 8529)
+
+        ArangoDB.Builder arango = new ArangoDB.Builder()
+                .host("127.0.0.1", 8529)
                 .useProtocol(Protocol.HTTP_JSON)
                 .user("root")
-                .password("151199");
+                .password("123");
+
+        ArangoDB db = arango.build();
+
+        if (!db.db("ArangoCats").exists()) {
+            db.createDatabase("ArangoCats");
+            db.db("ArangoCats").createCollection("Cats");
+            //fill cats
+            db.db("ArangoCats").createCollection("Owners");
+            //fill owners
+            db.db("ArangoCats").createCollection("HaveOwner");
+            //fill edges
+        }
+
+        return arango;
     }
 
     @Override

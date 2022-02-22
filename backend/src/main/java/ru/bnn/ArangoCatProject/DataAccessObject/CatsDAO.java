@@ -1,13 +1,11 @@
 package ru.bnn.ArangoCatProject.DataAccessObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ru.bnn.ArangoCatProject.Model.Cats;
 import ru.bnn.ArangoCatProject.Repository.CatsRepository;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Optional;
 
@@ -26,23 +24,9 @@ public class CatsDAO {
     }
 
     public Optional<Cats> findOne(String catID) {
-        if (catID == null || catID.isEmpty()) return Optional.empty();
+        if (catID == null || catID.isEmpty())
+            return Optional.empty();
         return catsRepository.findById(catID);
-    }
-
-
-    public Iterable<Cats> findAll() {
-        return catsRepository.findAll();
-    }
-
-    public Iterable<Cats> findAllAdopted() {
-        Iterable<Cats> adoptedCats = new LinkedList<>();
-        catsRepository.findAll();
-        for(Cats i : catsRepository.findAll()){
-            if (i.getOwner() != null)
-                ((LinkedList) adoptedCats).addLast(i);
-        }
-        return adoptedCats;
     }
 
     public Cats update(Cats cat) {
@@ -57,5 +41,23 @@ public class CatsDAO {
         if (catID == null || catID.isEmpty())
             return;
         catsRepository.deleteById(catID);
+    }
+
+    public Iterable<Cats> findHomeless() {
+        Iterable<Cats> iter = catsRepository.findAll();
+        ArrayList<Cats> list = (ArrayList<Cats>) iter;
+
+        list.removeIf(cat -> cat.getOwner() == null);
+
+        return iter;
+    }
+
+    public Iterable<Cats> findAdopted() {
+        Iterable<Cats> iter = catsRepository.findAll();
+        ArrayList<Cats> list = (ArrayList<Cats>) iter;
+
+        list.removeIf(cat -> cat.getOwner() != null);
+
+        return iter;
     }
 }

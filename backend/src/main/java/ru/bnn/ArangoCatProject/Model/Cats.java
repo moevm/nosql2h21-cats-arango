@@ -2,6 +2,7 @@ package ru.bnn.ArangoCatProject.Model;
 
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Relations;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 
 @Document("Cats")
@@ -11,23 +12,26 @@ public class Cats {
     private String key;
 
     private String name;
-    private Integer weight;
-    private Integer age;
+    private String weight;
+    private String age;
     private String description;
     private String appearance_date;
-
-    @Relations(edges = HaveBreed.class, lazy = true)
-    private HaveBreed breed;
+    private String breed;
 
     @Relations(edges = HaveOwner.class, lazy = true)
-    private HaveOwner owner;
+    @JsonIgnore
+    private HaveOwner owner = null;
 
-    public Cats(){
+    public Cats() {
 
     }
 
     public String getKey() {
         return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
@@ -38,19 +42,19 @@ public class Cats {
         this.name = name;
     }
 
-    public Integer getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
-    public Integer getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -70,11 +74,11 @@ public class Cats {
         this.appearance_date = appearance_date;
     }
 
-    public HaveBreed getBreed() {
+    public String getBreed() {
         return breed;
     }
 
-    public void setBreed(HaveBreed breed) {
+    public void setBreed(String breed) {
         this.breed = breed;
     }
 

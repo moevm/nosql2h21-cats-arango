@@ -19,9 +19,10 @@ public class DataAccessObject {
     private HaveOwnerRepository haveOwnerRepository;
 
     @Autowired
-    public DataAccessObject(CatsRepository catsRepository, OwnersRepository ownersRepository) {
+    public DataAccessObject(CatsRepository catsRepository, OwnersRepository ownersRepository, HaveOwnerRepository haveOwnerRepository) {
         this.catsRepository = catsRepository;
         this.ownersRepository = ownersRepository;
+        this.haveOwnerRepository = haveOwnerRepository;
     }
 
     public HaveOwner save(HaveOwner edge) {

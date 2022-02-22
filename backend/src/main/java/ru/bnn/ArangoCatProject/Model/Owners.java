@@ -1,8 +1,6 @@
 package ru.bnn.ArangoCatProject.Model;
 
-import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
-import com.arangodb.springframework.annotation.Rev;
 import org.springframework.data.annotation.Id;
 
 @Document("Owners")
@@ -14,12 +12,16 @@ public class Owners {
     private String document;
     private String birth_date;
 
-    public Owners(){
+    public Owners() {
 
     }
 
     public String getKey() {
         return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getFull_name() {
