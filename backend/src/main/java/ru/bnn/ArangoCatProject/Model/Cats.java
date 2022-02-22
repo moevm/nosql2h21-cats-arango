@@ -99,7 +99,6 @@ public class Cats {
 
     public void setOwner(HaveOwner owner) {
         this.owner = owner;
-        this.ownerName = owner.get_to().getFull_name();
     }
 
     @Override

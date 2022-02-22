@@ -26,7 +26,6 @@ public class DataAccessObject {
     }
 
     public HaveOwner save(HaveOwner edge) {
-        catsRepository.save(edge.get_from());
         haveOwnerRepository.save(edge);
         return edge;
     }
