@@ -31,7 +31,7 @@ export const COLUMNS = [
     },
     {
         title: 'Владелец',
-        dataIndex: 'owner',
+        dataIndex: 'ownerName',
         align: 'center',
 
     },

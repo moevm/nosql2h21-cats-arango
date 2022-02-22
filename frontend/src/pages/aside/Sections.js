@@ -11,8 +11,6 @@ export const Sections = function () {
     push(path);
   }, [push]);
 
-  console.log(routes);
-
   return (
     <Menu theme='dark' defaultOpenKeys={['Коты в  приюте']} mode='inline' defaultSelectedKeys={['Коты в  приюте']}>
       {routes.map((route) => {

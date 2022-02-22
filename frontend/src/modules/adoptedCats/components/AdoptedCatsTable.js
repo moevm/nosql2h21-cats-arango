@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Table} from "antd";
 import './AdoptedCatsTable.css'
 import {COLUMNS} from "../config";
+import {getAdoptedCats} from "../actions";
 
 const dataSource = [
     {
@@ -18,19 +19,20 @@ const dataSource = [
 ];
 
 export const AdoptedCatsTable = () =>{
-    const [data, setData] = useState(undefined);
+    const [data, setData] = useState();
 
-    // useEffect(()=>{
-    //     (async ()=>{
-    //         try{
-    //             const cats = await getAdoptedCats();
-    //             setData(cats);
-    //         }catch (e) {
-    //             console.error(e, 'наташа, мы все уронили')
-    //         }
-    //
-    //     })()
-    // },[])
+    useEffect(()=>{
+        (async ()=>{
+            try{
+                const cats = await getAdoptedCats();
+                setData(cats);
+            }catch (e) {
+                console.error(e, 'наташа, мы все уронили');
+                setData(dataSource);
+            }
+
+        })()
+    },[])
 
     return (
         <>
@@ -41,7 +43,7 @@ export const AdoptedCatsTable = () =>{
             <Table
                 rowKey='id'
                 columns={COLUMNS}
-                dataSource={dataSource}
+                dataSource={data}
                 bordered
             />
 

@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Table, Button, Form, Input, Modal} from "antd";
+import {Button, DatePicker, Form, Input, Modal, Table} from "antd";
 import './CatsTable.css'
-import {getCats} from "../actions";
+import {addCat, getCats} from "../actions";
 import {COLUMNS} from "../config";
+import moment from "moment";
 
 const dataSource = [
     {
@@ -20,27 +21,36 @@ const {Item} = Form;
 const {TextArea} = Input;
 
 export const CatsTable = () =>{
-    const [data, setData] = useState(undefined);
+    const [data, setData] = useState();
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
 
 
-    // useEffect(()=>{
-    //     (async ()=>{
-    //         try{
-    //             const cats = await getCats();
-    //             setData(cats);
-    //         }catch (e) {
-    //             console.error(e, 'наташа, мы все уронили')
-    //         }
-    //
-    //     })()
-    // },[])
+    useEffect(()=>{
+        (async ()=>{
+            try{
+                const cats = await getCats();
+                setData(cats);
+            }catch (e) {
+                console.error(e, 'наташа, мы все уронили');
+                setData(dataSource);
+            }
+
+        })()
+    },[])
 
     const showModal = () => setVisible(true);
     const handleCancel = () => setVisible(false);
-    const handleCreate = (values) => {
-        console.log(values);
+    const handleCreate = async (values) => {
+        try{
+            // console.log({data:{...values, appearance_date:values.appearance_date.format()}})
+            const cats = await addCat({...values, appearance_date:values.appearance_date.format()});
+            console.log(cats);
+        }catch (e) {
+            console.error(e, 'наташа, мы все уронили')
+        }
+        const cats = await getCats();
+        setData(cats);
         setVisible(false);
     }
 
@@ -54,7 +64,7 @@ export const CatsTable = () =>{
             <Table
                 rowKey='id'
                 columns={COLUMNS}
-                dataSource={dataSource}
+                dataSource={data}
                 bordered
             />
 
@@ -78,7 +88,7 @@ export const CatsTable = () =>{
                             <Input />
                         </Item>
                         <Item name='appearance_date' label="Дата появления в приюте">
-                            <Input />
+                            <DatePicker format={'DD.MM.YYYY'} style={{color: 'black'}}/>
                         </Item>
                         <Item name='breed' label="Порода" >
                             <Input />

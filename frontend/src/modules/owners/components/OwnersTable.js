@@ -3,6 +3,7 @@ import {Button, DatePicker, Form, Input, Modal, Table} from "antd";
 import './OwnersTable.css'
 import {COLUMNS} from "../config";
 import moment from "moment";
+import {addOwner, getOwners} from "../actions";
 
 const dataSource = [
     {
@@ -15,25 +16,35 @@ const dataSource = [
 const {Item} = Form;
 
 export const OwnersTable = () =>{
-    const [data, setData] = useState(undefined);
+    const [data, setData] = useState();
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
 
-    // useEffect(()=>{
-    //     (async ()=>{
-    //         try{
-    //             const cats = await getCats();
-    //             setData(cats);
-    //         }catch (e) {
-    //             console.error(e, 'наташа, мы все уронили')
-    //         }
-    //
-    //     })()
-    // },[])
+    useEffect(()=>{
+        (async ()=>{
+            try{
+                const owners = await getOwners();
+                setData(owners);
+            }catch (e) {
+                console.error(e, 'наташа, мы все уронили');
+                setData(dataSource);
+            }
+
+        })()
+    },[])
 
     const showModal = () => setVisible(true);
     const handleCancel = () => setVisible(false);
-    const handleCreate = (values) => {
+    const handleCreate = async (values) => {
+        try{
+            const cats = await addOwner({...values, birth_date: values.birth_date.format()});
+            console.log(cats);
+        }catch (e) {
+            console.error(e, 'наташа, мы все уронили')
+            setData(dataSource);
+        }
+        const cats = await getOwners();
+        setData(cats);
         console.log(values);
         setVisible(false);
     }
@@ -48,7 +59,7 @@ export const OwnersTable = () =>{
             <Table
                 rowKey='id'
                 columns={COLUMNS}
-                dataSource={dataSource}
+                dataSource={data}
                 bordered
             />
 
@@ -69,7 +80,7 @@ export const OwnersTable = () =>{
                         <Input />
                     </Item>
                     <Item name='birth_date' label="Дата рождения" >
-                        <DatePicker format={'DD.MM.YYYY'} defaultValue={moment()}  />
+                        <DatePicker format={'DD.MM.YYYY'} />
                     </Item>
                     <Item >
                         <Button type="primary" htmlType="submit">

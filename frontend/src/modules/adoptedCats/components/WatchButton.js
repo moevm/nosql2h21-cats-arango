@@ -39,7 +39,7 @@ export const WatchButton = ({adoptedCat}) =>{
                         <Item name='breed' label="Порода" >
                             <Input disabled style={{color: 'black'}}/>
                         </Item>
-                        <Item name='owner' label="Владелец" >
+                        <Item name='ownerName' label="Владелец" >
                             <Input disabled style={{color: 'black'}}/>
                         </Item>
                         <Item name='description' label="Описание">

@@ -7,7 +7,7 @@ export  const  getAdoptedCats  = async() =>{
         headers: {'Content-Type': 'application/json'},
     };
     try{
-        result = await (await fetch(REACT_APP_API_ENDPOINT + '/owners', requestOptions)).json();
+        result = await (await fetch(REACT_APP_API_ENDPOINT + '/adopted', requestOptions)).json();
     }catch (e) {
         console.error(e);
         result=[];
