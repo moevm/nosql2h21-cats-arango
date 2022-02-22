@@ -26,7 +26,9 @@ public class DataAccessObject {
     }
 
     public HaveOwner save(HaveOwner edge) {
-        return haveOwnerRepository.save(edge);
+        catsRepository.save(edge.get_from());
+        haveOwnerRepository.save(edge);
+        return edge;
     }
 
     public Optional<Cats> findCat(String catID) {
@@ -38,5 +40,4 @@ public class DataAccessObject {
         if (ownerID == null || ownerID.isEmpty()) return Optional.empty();
         return ownersRepository.findById(ownerID);
     }
-
 }

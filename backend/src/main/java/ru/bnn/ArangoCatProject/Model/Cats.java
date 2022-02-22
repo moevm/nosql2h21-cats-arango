@@ -1,6 +1,7 @@
 package ru.bnn.ArangoCatProject.Model;
 
 import com.arangodb.springframework.annotation.Document;
+import com.arangodb.springframework.annotation.Ref;
 import com.arangodb.springframework.annotation.Relations;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
@@ -18,9 +19,19 @@ public class Cats {
     private String appearance_date;
     private String breed;
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    private String ownerName = "";
+
+    @Ref
     @Relations(edges = HaveOwner.class, lazy = true)
-    @JsonIgnore
-    private HaveOwner owner = null;
+    private HaveOwner owner;
 
     public Cats() {
 
@@ -88,19 +99,20 @@ public class Cats {
 
     public void setOwner(HaveOwner owner) {
         this.owner = owner;
+        this.ownerName = owner.get_to().getFull_name();
     }
 
     @Override
     public String toString() {
         return "Cats{" +
-                "key:'" + key + '\'' +
-                ", name:'" + name + '\'' +
-                ", weight:" + weight +
-                ", age:" + age +
-                ", description:'" + description + '\'' +
-                ", appearance_date:'" + appearance_date + '\'' +
-                ", breed:" + breed +
-                ", owner:" + owner +
+                "key='" + key + '\'' +
+                ", name='" + name + '\'' +
+                ", weight='" + weight + '\'' +
+                ", age='" + age + '\'' +
+                ", description='" + description + '\'' +
+                ", appearance_date='" + appearance_date + '\'' +
+                ", breed='" + breed + '\'' +
+                ", ownerName='" + ownerName + '\'' +
                 '}';
     }
 }

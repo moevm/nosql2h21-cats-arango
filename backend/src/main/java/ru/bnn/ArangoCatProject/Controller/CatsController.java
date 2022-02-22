@@ -19,19 +19,21 @@ public class CatsController {
 
     @PostMapping("/cats")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<Void> create(@RequestBody String cat) {
-        if(cat != null){
-            System.out.println(cat);
+    public ResponseEntity<Void> create(@RequestBody Cats cat) {
+        if(catsDAO.save(cat) != null)
             return new ResponseEntity<>(HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/cats")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Cats update(@RequestBody Cats cat) {
-        return catsDAO.update(cat);
+    public ResponseEntity<Void> update(@RequestBody Cats cat) {
+
+        if(catsDAO.update(cat) != null)
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/homeless")

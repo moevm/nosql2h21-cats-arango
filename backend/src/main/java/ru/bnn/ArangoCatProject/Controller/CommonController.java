@@ -16,11 +16,13 @@ public class CommonController {
         this.dao = dao;
     }
 
-    @PostMapping("/cats/makehome")
+    @PostMapping("/cats/adopt")
     @CrossOrigin(origins = "http://localhost:3000")
-    public HaveOwner create(@RequestParam("catKey") String catKey, @RequestParam("ownerKey") String ownerKey) {
+    public HaveOwner create(@RequestBody Params params) {
 
         HaveOwner edge = new HaveOwner();
+        String catKey = params.getCatKey();
+        String ownerKey = params.getOwnerKey();
 
         Optional<Cats> cat = dao.findCat(catKey);
         Optional<Owners> owner = dao.findOwner(ownerKey);

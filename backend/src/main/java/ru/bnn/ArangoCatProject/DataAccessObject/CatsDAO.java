@@ -44,20 +44,26 @@ public class CatsDAO {
     }
 
     public Iterable<Cats> findHomeless() {
-        Iterable<Cats> iter = catsRepository.findAll();
-        ArrayList<Cats> list = (ArrayList<Cats>) iter;
+        ArrayList<Cats> iter = (ArrayList<Cats>)catsRepository.findAll();
+        ArrayList<Cats> list = new ArrayList<>();
 
-        list.removeIf(cat -> cat.getOwner() == null);
+        for(Cats i : iter){
+            if(i.getOwnerName().isEmpty() && i.getOwner() == null)
+                list.add(i);
+        }
 
-        return iter;
+        return list;
     }
 
     public Iterable<Cats> findAdopted() {
-        Iterable<Cats> iter = catsRepository.findAll();
-        ArrayList<Cats> list = (ArrayList<Cats>) iter;
+        ArrayList<Cats> iter = (ArrayList<Cats>)catsRepository.findAll();
+        ArrayList<Cats> list = new ArrayList<>();
 
-        list.removeIf(cat -> cat.getOwner() != null);
+        for(Cats i : iter){
+            if(!i.getOwnerName().isEmpty() || i.getOwner() != null)
+                list.add(i);
+        }
 
-        return iter;
+        return list;
     }
 }

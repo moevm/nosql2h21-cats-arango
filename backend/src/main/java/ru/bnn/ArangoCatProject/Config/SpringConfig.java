@@ -2,6 +2,8 @@ package ru.bnn.ArangoCatProject.Config;
 
 import com.arangodb.ArangoDB;
 import com.arangodb.Protocol;
+import com.arangodb.entity.CollectionType;
+import com.arangodb.model.CollectionCreateOptions;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.ArangoConfiguration;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +29,7 @@ public class SpringConfig implements ArangoConfiguration {
             //fill cats
             db.db("ArangoCats").createCollection("Owners");
             //fill owners
-            db.db("ArangoCats").createCollection("HaveOwner");
+            db.db("ArangoCats").createCollection("HaveOwner", new CollectionCreateOptions().type(CollectionType.EDGES));
             //fill edges
         }
 
