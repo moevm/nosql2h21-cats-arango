@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Table} from "antd";
-import './CatsTable.css'
-import {getCats} from "../actions";
+import './AdoptedCatsTable.css'
 import {COLUMNS} from "../config";
 
 const dataSource = [
@@ -12,17 +11,19 @@ const dataSource = [
         weight: '32кг',
         appearance_date: '2022-01-12T18:00:42.305Z',
         breed:'синий ушастик',
-        description: 'твой самый лучший друг'
+        description: 'твой самый лучший друг',
+        owner: 'Аввакумов Ибрагим',
+        document: '4432 456434',
     },
 ];
 
-export const CatsTable = () =>{
+export const AdoptedCatsTable = () =>{
     const [data, setData] = useState(undefined);
 
     // useEffect(()=>{
     //     (async ()=>{
     //         try{
-    //             const cats = await getCats();
+    //             const cats = await getAdoptedCats();
     //             setData(cats);
     //         }catch (e) {
     //             console.error(e, 'наташа, мы все уронили')
@@ -33,8 +34,8 @@ export const CatsTable = () =>{
 
     return (
         <>
-            <header className={'.CatsTable_header'}>
-                <h1>Коты в приюте</h1>
+            <header className={'.OwnersTable_header'}>
+                <h1>Коты которых приютили</h1>
             </header>
 
             <Table
