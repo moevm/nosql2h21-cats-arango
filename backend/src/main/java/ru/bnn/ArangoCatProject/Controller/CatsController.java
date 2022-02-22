@@ -27,8 +27,6 @@ public class CatsController {
         return catsDAO.update(cat);
     }
 
-
-    //котов с отцом не присылать
     @GetMapping("/cats")
     public Iterable<Cats> listAll() {
         return catsDAO.findAll();

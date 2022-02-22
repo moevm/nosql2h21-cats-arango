@@ -34,7 +34,7 @@ public class OwnersDAO {
     }
 
     public Owners update(Owners owner) {
-        String ownerID = owner.get_id();
+        String ownerID = owner.getKey();
         if (ownerID == null || ownerID.isEmpty())
             return null;
 

@@ -1,38 +1,23 @@
 package ru.bnn.ArangoCatProject.Model;
 
-import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Relations;
-import com.arangodb.springframework.annotation.Rev;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
 @Document("Cats")
 public class Cats {
 
-    @ArangoId
-    private String _id;
     @Id
-    private String _key;
-    @Rev
-    private String _rev;
+    private String key;
 
     private String name;
     private Integer weight;
     private Integer age;
-    private String about;
-    private String arrival_date;
+    private String description;
+    private String appearance_date;
 
     @Relations(edges = HaveBreed.class, lazy = true)
     private HaveBreed breed;
-
-    public HaveBreed getBreed() {
-        return breed;
-    }
-
-    public HaveOwner getOwner() {
-        return owner;
-    }
 
     @Relations(edges = HaveOwner.class, lazy = true)
     private HaveOwner owner;
@@ -41,16 +26,8 @@ public class Cats {
 
     }
 
-    public String get_id() {
-        return _id;
-    }
-
-    public String get_key() {
-        return _key;
-    }
-
-    public String get_rev() {
-        return _rev;
+    public String getKey() {
+        return key;
     }
 
     public String getName() {
@@ -77,24 +54,32 @@ public class Cats {
         this.age = age;
     }
 
-    public String getAbout() {
-        return about;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAbout(String about) {
-        this.about = about;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getArrival_date() {
-        return arrival_date;
+    public String getAppearance_date() {
+        return appearance_date;
     }
 
-    public void setArrival_date(String arrival_date) {
-        this.arrival_date = arrival_date;
+    public void setAppearance_date(String appearance_date) {
+        this.appearance_date = appearance_date;
+    }
+
+    public HaveBreed getBreed() {
+        return breed;
     }
 
     public void setBreed(HaveBreed breed) {
         this.breed = breed;
+    }
+
+    public HaveOwner getOwner() {
+        return owner;
     }
 
     public void setOwner(HaveOwner owner) {
@@ -104,15 +89,14 @@ public class Cats {
     @Override
     public String toString() {
         return "Cats{" +
-                "_id:'" + _id + '\'' +
-                ", key:'" + _key + '\'' +
-                ",_rev:'" + _rev + '\'' +
+                "key:'" + key + '\'' +
                 ", name:'" + name + '\'' +
-                ", weight=" + weight +
-                ", age:'" + age +
-                ", description:'" + about + '\'' +
-                ", appearance_date:'" + arrival_date + '\'' +
-                (owner != null ? "owner:'" + owner.get_to().getFirst_name() + ' ' + owner.get_to().getSurname() + '\'' +
-                "document:'" + owner.get_to().getPassport() + '}' : "}");
+                ", weight:" + weight +
+                ", age:" + age +
+                ", description:'" + description + '\'' +
+                ", appearance_date:'" + appearance_date + '\'' +
+                ", breed:" + breed +
+                ", owner:" + owner +
+                '}';
     }
 }

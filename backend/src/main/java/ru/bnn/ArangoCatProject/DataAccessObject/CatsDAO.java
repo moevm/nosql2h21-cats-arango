@@ -46,7 +46,7 @@ public class CatsDAO {
     }
 
     public Cats update(Cats cat) {
-        String catID = cat.get_id();
+        String catID = cat.getKey();
         if (catID == null || catID.isEmpty())
             return null;
 
