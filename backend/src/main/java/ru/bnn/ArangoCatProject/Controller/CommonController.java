@@ -17,6 +17,7 @@ public class CommonController {
     }
 
     @PostMapping("/cats/makehome")
+    @CrossOrigin(origins = "http://localhost:3000")
     public HaveOwner create(@RequestParam("catKey") String catKey, @RequestParam("ownerKey") String ownerKey) {
 
         HaveOwner edge = new HaveOwner();

@@ -16,31 +16,37 @@ public class CatsController {
     }
 
     @PostMapping("/cats")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Cats create(@RequestBody Cats cat) {
         return catsDAO.save(cat);
     }
 
     @PutMapping("/cats")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Cats update(@RequestBody Cats cat) {
         return catsDAO.update(cat);
     }
 
     @GetMapping("/homeless")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Iterable<Cats> listHomeless() {
         return catsDAO.findHomeless();
     }
 
     @GetMapping("/adopted")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Iterable<Cats> listAdopted() {
         return catsDAO.findAdopted();
     }
 
     @GetMapping("/cats/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Optional<Cats> findByTitle(@PathVariable @NotNull String id) {
         return catsDAO.findOne(id);
     }
 
     @DeleteMapping("/cats/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void deleteById(@PathVariable @NotNull String id) {
         catsDAO.delete(id);
     }

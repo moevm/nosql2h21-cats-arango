@@ -19,26 +19,31 @@ public class OwnersController {
     }
 
     @PostMapping("/owners")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Owners create(@RequestBody @Valid Owners owner) {
         return ownersDAO.save(owner);
     }
 
     @PutMapping("/owners")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Owners update(@RequestBody @Valid Owners owner) {
         return ownersDAO.update(owner);
     }
 
     @GetMapping("/owners")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Iterable<Owners> list() {
         return ownersDAO.findAll();
     }
 
     @GetMapping("/owners/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Optional<Owners> findByTitle(@PathVariable @NotNull String id) {
         return ownersDAO.findOne(id);
     }
 
     @DeleteMapping("/owners/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void deleteById(@PathVariable @NotNull String id) {
         ownersDAO.delete(id);
     }
