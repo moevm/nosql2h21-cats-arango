@@ -1,7 +1,5 @@
 package ru.bnn.ArangoCatProject.Controller;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import ru.bnn.ArangoCatProject.DataAccessObject.OwnersDAO;
 import ru.bnn.ArangoCatProject.Model.Owners;
